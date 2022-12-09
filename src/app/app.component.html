@@ -6,7 +6,16 @@
     pattern=".+@.+\..+"
     name="email"
     [(ngModel)]="email"
+    #emailControl="ngModel"
   />
+  <ng-container
+    *ngIf="emailControl.invalid && emailControl.touched && emailControl.errors"
+  >
+    <div *ngIf="emailControl.errors['required']">You must enter the email</div>
+    <div *ngIf="emailControl.errors['pattern']">
+      Please enter the valid email
+    </div>
+  </ng-container>
 </form>
 <br />
 <br />
@@ -15,6 +24,3 @@
 <h2>Debugging output:</h2>
 <div>Is form valid: {{ emailForm.valid }}</div>
 <div>Form object: {{ emailForm.value | json }}</div>
-<div>
-  Email validation errors: {{ emailForm.controls["email"].errors | json }}
-</div>
